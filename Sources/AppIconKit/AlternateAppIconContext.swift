@@ -28,20 +28,20 @@ open class AlternateAppIconContext: NSObject, ObservableObject {
     public private(set) var alternateAppIconName: String?
 
     /// Reset the alternate app icon.
-    func resetAlternateAppIcon() {
+    open func resetAlternateAppIcon() {
         guard alternateAppIconName != nil else { return }
         setAlternateAppIconName(nil)
     }
 
     /// Set a certain alternate app icon.
-    func setAlternateAppIcon(
+    open func setAlternateAppIcon(
         _ icon: AlternateAppIcon
     ) {
         setAlternateAppIconName(icon.appIconName)
     }
 
     /// Set an alternate app icon with a certain name.
-    func setAlternateAppIconName(
+    open func setAlternateAppIconName(
         _ name: String?
     ) {
         alternateAppIconName = name
