@@ -12,11 +12,10 @@ import SwiftUI
 /// This observable context class can be used to managed the
 /// alternate app icon for an iOS or macOS app.
 @MainActor
-open class AlternateAppIconContext: NSObject, ObservableObject {
+public class AlternateAppIconContext: ObservableObject {
 
     /// Create an alternate app icon context instance.
-    public override init() {
-        super.init()
+    public init() {
         #if os(macOS)
         guard let alternateAppIconName else { return }
         setAlternateAppIconName(alternateAppIconName)
@@ -48,17 +47,7 @@ public extension AlternateAppIconContext {
         _ name: String?
     ) {
         alternateAppIconName = name
-        #if targetEnvironment(macCatalyst)
-        if let nsApplication = NSClassFromString("NSApplication") as? NSObject.Type,
-           let shared = nsApplication.value(forKey: "sharedApplication") as? NSObject {
-            if let name, let imagePerform = Bundle.main.perform(NSSelectorFromString("imageForResource:"), with: name), let image = imagePerform.takeUnretainedValue() as? NSObject {
-                shared.setValue(image, forKey: "applicationIconImage")
-            } else {
-                alternateAppIconName = nil
-                shared.setValue(nil, forKey: "applicationIconImage")
-            }
-        }
-        #elseif os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS)
         UIApplication.shared.setAlternateIconName(name)
         #elseif os(macOS)
         if let name {
