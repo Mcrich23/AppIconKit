@@ -26,9 +26,6 @@ open class AlternateAppIconContext: NSObject, ObservableObject {
     /// The currently set alternate app icon name.
     @AppStorage("com.danielsaidi.appiconkit.alternateappiconname")
     public private(set) var alternateAppIconName: String?
-}
-
-public extension AlternateAppIconContext {
 
     /// Reset the alternate app icon.
     func resetAlternateAppIcon() {
